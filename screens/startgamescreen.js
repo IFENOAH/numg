@@ -12,7 +12,7 @@ export function StartGameScreen({ onPickNumber }){
     }
 
     const resetInputHandler = () => {
-        setEnteredNumber('')
+        setEnteredNumber()
     }
 
     const confirmInputHandler = () => {
@@ -31,7 +31,6 @@ export function StartGameScreen({ onPickNumber }){
             return;
         }
         onPickNumber(enteredNumber)
-        console.log(`${enteredNumber} is a valid Number`)
     }
 
     return (
