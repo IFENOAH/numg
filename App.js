@@ -1,15 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, ImageBackground, SafeAreaView } from 'react-native';
 import { StartGameScreen } from './screens/startgamescreen';
 import { LinearGradient } from 'expo-linear-gradient';
 import { GameScreen } from './screens/gamescreen';
 import { GameOverScreen } from './screens/gameoverscreen';
+import { useFonts } from 'expo-font'
+import AppLoading from 'expo-app-loading';
+// import {} from 'expo-splash-screen'
 
 export default function App() {
 
   const [userNumber, setUserNumber] = useState();
   const [gameIsOver, setGameIsOver] = useState(true)
+  const [guessRounds, setGuessRounds] = useState(0)
+
+  const [ fontsLoaded ] = useFonts({
+    'open-sans' : require('./assets/fonts/OpenSans-Regular.ttf'),
+    'open-sans-bold' : require('./assets/fonts/OpenSans-Bold.ttf'),
+  });
+
+  if(!fontsLoaded){
+    return <AppLoading />;
+  }
 
   const pickedNumberHandler = (number) => {
     if (!number) return;
@@ -17,14 +30,20 @@ export default function App() {
     setGameIsOver(false)
   }
 
-  const handleGameIsOver = () => {
+  const handleGameIsOver = (numRounds) => {
     setGameIsOver(true)
+    setGuessRounds(numRounds)
+  }
+
+  const handleNewGameHandler = () => {
+    setUserNumber(null);
+    setGuessRounds(0)
   }
 
   let gameScreen = <StartGameScreen onPickNumber={pickedNumberHandler} />
 
   if(userNumber) gameScreen = <GameScreen number={userNumber} onGameOver={handleGameIsOver} />
-  if(gameIsOver && userNumber) gameScreen = <GameOverScreen />
+  if(gameIsOver && userNumber) gameScreen = <GameOverScreen userNUmber={userNumber} roundsNumber={guessRounds} onStartNewGame={handleNewGameHandler} />
 
   return (
     <LinearGradient colors={["#000000", "#000006"]} style={styles.screenRoot}>
@@ -38,7 +57,7 @@ export default function App() {
         {gameScreen}
       </SafeAreaView>
       </ImageBackground>
-      {/* <StatusBar style='auto' /> */}
+      <StatusBar style='light' />
     </LinearGradient>
   );
 }

@@ -8,13 +8,16 @@ export default function Title({ children }){
 
 const styles = StyleSheet.create({
     title: {
+        fontFamily: 'open-sans-bold',
         fontSize: 24,
-        fontWeight: 'bold',
+        // fontWeight: 'bold', 
         color: "#ffffff",
         textAlign: 'center',
         padding: 12,
         borderWidth: 2,
         borderColor: '#ffffff',
-        borderRadius: 8
+        borderRadius: 8,
+        maxWidth: '80%',
+        width: 300 
     }
 })
