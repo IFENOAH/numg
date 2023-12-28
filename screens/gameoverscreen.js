@@ -25,7 +25,7 @@ export const GameOverScreen = ({ roundsNumber, userNUmber, onStartNewGame }) => 
     }
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.screen}>
         <View style={styles.screenStyle}>
             <Title>GAME OVER!!!</Title>
             <View style={[styles.imageContainerStyle, imageStyle]}>
@@ -50,6 +50,9 @@ export const GameOverScreen = ({ roundsNumber, userNUmber, onStartNewGame }) => 
 const DeviceWidth = Dimensions.get('window').width
 
 const styles = StyleSheet.create({
+    screen: {
+        flex: 1
+    },
     screenStyle: {
         flex: 1,
         padding: 24,
